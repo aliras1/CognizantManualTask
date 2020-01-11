@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1iplkkq" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Zeebe Modeler" exporterVersion="0.8.0">
+  <bpmn:process id="ManualTaskWorkflow" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>SequenceFlow_1rb2mev</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_1rb2mev" sourceRef="StartEvent_1" targetRef="Task_0vhj3fb" />
+    <bpmn:exclusiveGateway id="ExclusiveGateway_0hbhgn1">
+      <bpmn:incoming>SequenceFlow_1ivtuvq</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1ec1dse</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_18coqsx</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="SequenceFlow_1ivtuvq" sourceRef="Task_0vhj3fb" targetRef="ExclusiveGateway_0hbhgn1" />
+    <bpmn:sequenceFlow id="SequenceFlow_1ec1dse" name="FAIL" sourceRef="ExclusiveGateway_0hbhgn1" targetRef="Task_0vhj3fb">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">result == "FAIL"</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:endEvent id="EndEvent_0ew60vx" name="End">
+      <bpmn:incoming>SequenceFlow_18coqsx</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_18coqsx" name="PASS" sourceRef="ExclusiveGateway_0hbhgn1" targetRef="EndEvent_0ew60vx">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">result == "PASS"</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:serviceTask id="Task_0vhj3fb" name="Manual Task">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="ManualTask" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_1rb2mev</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_1ec1dse</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1ivtuvq</bpmn:outgoing>
+    </bpmn:serviceTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="ManualTaskWorkflow">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1rb2mev_di" bpmnElement="SequenceFlow_1rb2mev">
+        <di:waypoint x="215" y="117" />
+        <di:waypoint x="360" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ExclusiveGateway_0hbhgn1_di" bpmnElement="ExclusiveGateway_0hbhgn1" isMarkerVisible="true">
+        <dc:Bounds x="605" y="92" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1ivtuvq_di" bpmnElement="SequenceFlow_1ivtuvq">
+        <di:waypoint x="460" y="117" />
+        <di:waypoint x="605" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1ec1dse_di" bpmnElement="SequenceFlow_1ec1dse">
+        <di:waypoint x="630" y="142" />
+        <di:waypoint x="630" y="210" />
+        <di:waypoint x="410" y="210" />
+        <di:waypoint x="410" y="157" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="508" y="192" width="24" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="EndEvent_0ew60vx_di" bpmnElement="EndEvent_0ew60vx">
+        <dc:Bounds x="802" y="99" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="810" y="142" width="20" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_18coqsx_di" bpmnElement="SequenceFlow_18coqsx">
+        <di:waypoint x="655" y="117" />
+        <di:waypoint x="802" y="117" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="714" y="99" width="30" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ServiceTask_1yhm61u_di" bpmnElement="Task_0vhj3fb">
+        <dc:Bounds x="360" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

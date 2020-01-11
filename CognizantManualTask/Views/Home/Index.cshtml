@@ -1,0 +1,42 @@
+﻿@model IEnumerable<CognizantManualTask.Models.ManualTaskView>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CurrentState)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr id="@item.Id">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CurrentState)
+                </td>
+                <td>
+                    <a onclick="sendResult(@item.Id, 'PASS')" class="btn btn-primary">PASS</a> |
+                    <a onclick="sendResult(@item.Id, 'FAIL')" class="btn btn-primary">FAIL</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
